@@ -28,7 +28,13 @@ extern uint8_t MUSIC_ON;
 
 static uint8_t item_type;
 
+#define CPU_MODE 0xD030
 
+#define FAST_MODE 0x01
+#define SLOW_MODE 0x00
+
+#define fast_mode() POKE(CPU_MODE, FAST_MODE)
+#define slow_mode() POKE(CPU_MODE, SLOW_MODE)
 
 #define INITIAL_LEVEL 1
 
@@ -816,6 +822,7 @@ void draw_the_moon(void)
 {
     for(i=1;i<4;++i)
     {
+        fast_mode();
         for(j=0;j<4;++j)
         {
             POKE(SCREEN+MOON_OFFSET+i+NUMBER_OF_COLS*j,(255-16)+i+j*4);
@@ -931,6 +938,7 @@ void init_grass(void)
     
     for(i=0;i<NUMBER_OF_COLS;++i)
     {
+        fast_mode();
         POKE(SCREEN+1000-40+i,GRASS_TILE);
         POKE(COLOR+1000-40+i,GREEN);
     }
@@ -969,6 +977,7 @@ void clear_stars(void)
 	uint16_t i;
 	for(i=0;i<NUMBER_OF_COLS*8;++i)
 	{
+        fast_mode();
 		POKE(SLOW_STAR_TILE_OFFSET+i,0);
 		POKE(FAST_STAR_TILE_OFFSET+i,0);
 	}
@@ -2573,18 +2582,22 @@ int main()
         hide_sprites();
 
         distance = 0;
-        
+        fast_mode();
+
         clear_screen();
-        *(char*)0xD011 = 0x0b; // FAST MODE ON
+        // *(char*)0xD011 = 0x0b; // FAST MODE ON
 
         clear_stars();
         init_stars();
         
+        fast_mode();
+
         init_grass();
 
 
         draw_the_moon();
         
+        fast_mode();
         print("     ",5,INITIAL_HI_OFFSET,WHITE);
 
 
@@ -2598,8 +2611,7 @@ int main()
 		print("SCORE",5,0,CYAN);
 		
 
-        // POKE(SCREEN+DISTANCE_OFFSET+5,0);
-        // POKE(SCREEN+DISTANCE_OFFSET+6,0);
+        fast_mode();
 		
 		print("LV",2,LEVEL_OFFSET-2,CYAN);
 		display_level();
@@ -2614,6 +2626,8 @@ int main()
 		
 		display_hi(HI_OFFSET);        
         
+        fast_mode();
+
         init_balloons();
 		init_items();
         init_player(BEFANA_INDEX);
@@ -2623,7 +2637,8 @@ int main()
         SPRY[17] = 255;
         SPRY[18] = 255;
         
-        *(char*)0xD011 = 0x1b; // FAST MODE OFF
+        // *(char*)0xD011 = 0x1b; // FAST MODE OFF
+        slow_mode();
         
         music_switch(0);
         display_new_level();
