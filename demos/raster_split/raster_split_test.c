@@ -48,8 +48,28 @@ extern unsigned char MULTIPLEX_DONE;
 #endif
 #define GFX_START_INDEX (GFX_START/0x40)
 
+
+#define BLACK       0x00
+#define WHITE       0x01
+#define RED         0x02
+#define CYAN        0x03
+#define PURPLE      0x04
+#define GREEN       0x05
+#define BLUE        0x06
+#define YELLOW      0x07
+#define ORANGE      0x08
+#define BROWN       0x09
+#define PINK        0x0A    
+#define DARK_GREY   0x0B
+#define GREY        0x0C
+#define LIGHT_GREEN 0x0D
+#define LIGHT_BLUE  0x0E
+#define LIGHT_GREY  0x0F
+
+
 #define NUMBER_OF_COLORS 12
 const unsigned char COLOR[NUMBER_OF_COLORS] = {2,3,4,5,7,9,10,11,12,13,14,15};
+
 
 int main()
 {    
@@ -65,7 +85,8 @@ int main()
     // POKE(0xd020, 0x00);
     // POKE(0xd021, 0x00);
     clrscr();
-
+    POKE(0xD020,BLACK);
+    POKE(0xD021,BLACK);
 	
     #if !defined(NO_INPUT)
         gotoxy(1,1);cprintf("press a key to start");
@@ -95,6 +116,7 @@ int main()
         // gotoxy(30,j); cprintf("SPRF: %02u",SPRF[j]);  
 
         SPRC[j]= COLOR[j];        
+        // SPRC[j]=COLOR_WHITE;
     }
 
     for(j=0;j<8;++j)
@@ -109,6 +131,7 @@ int main()
         // gotoxy(30,j+8); cprintf("SPRF: %02u",SPRF[j+8]);   
         
 		SPRC[j+8]= COLOR[j];        
+        // SPRC[j+8]=COLOR_WHITE;
     }    
     
     while(1) 
