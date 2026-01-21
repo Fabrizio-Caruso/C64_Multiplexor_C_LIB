@@ -304,6 +304,13 @@ IRQBOTTOM:
         STY BOTTOM_STORE_Y                     ; for kernal OFF only
     .ENDIF
 
+    .IFDEF FLIP_TEST_BIT
+    LDA #$02
+    STA $D030
+    LDA #$00
+    STA $D030
+    .ENDIF
+
     .IF FREE_SPRITES<8    
     LDA SPRY+$08
     STA VIC_SPR0_Y                      ; weird effects when sprite

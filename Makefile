@@ -387,7 +387,6 @@ raster_split:
 	--asm-define USE_KERNAL=1 \
 	--asm-define MAXSPR=16 \
 	--asm-define STANDARD_IRQ=1 \
-	-DNO_INPUT \
 	$(DEMOS_PATH)/raster_split/raster_split_test.c \
 	$(RAS_SPLT_ASM_FILES) \
 	-o $(BUILD_PATH)/$@.prg
@@ -426,6 +425,7 @@ raster_split_c128:
 	--asm-define USE_KERNAL=1 \
 	--asm-define MAXSPR=16 \
 	--asm-define STANDARD_IRQ=1 \
+	--asm-define FLIP_TEST_BIT=1 \
 	$(DEMOS_PATH)/raster_split/raster_split_test.c \
 	$(RAS_SPLT_ASM_FILES) \
 	-o $(BUILD_PATH)/$@.prg

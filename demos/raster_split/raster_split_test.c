@@ -67,7 +67,11 @@ extern unsigned char MULTIPLEX_DONE;
 #define LIGHT_GREY  0x0F
 
 
+#define SCREEN_BASE 0x0400
+#define COLOR_BASE  0xD800
+
 #define NUMBER_OF_COLORS 12
+
 const unsigned char COLOR[NUMBER_OF_COLORS] = {2,3,4,5,7,9,10,11,12,13,14,15};
 
 
@@ -87,6 +91,9 @@ int main()
     clrscr();
     POKE(0xD020,BLACK);
     POKE(0xD021,BLACK);
+    
+    
+
 	
     #if !defined(NO_INPUT)
         gotoxy(1,1);cprintf("press a key to start");
@@ -103,6 +110,14 @@ int main()
 /***************************************
 * Main loop
 *******************/
+
+    for (i=0;i<16;++i)
+    {
+        POKE(SCREEN_BASE+i,1);
+        POKE(SCREEN_BASE+1000-80+i,1);
+        POKE(COLOR_BASE+i,i);
+        POKE(COLOR_BASE+1000-80+i,i);
+    }
 
     for(j=0;j<8;++j)
     {
