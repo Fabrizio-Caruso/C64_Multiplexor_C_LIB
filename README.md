@@ -19,6 +19,7 @@ FEATURES
 - Simple C interface provided by some shared variables (see INSTRUCTIONS.txt in the "doc" directory)
 - Support for C64, C128 in both 128 and in 64 mode
 - Fast 2mhz mode support for the C128 in both 128 and 64 mode: it runs on average at 1.3mhz (PAL) by enabling the fast mode on the borders
+- Support flip test bit of $D030 register to get 11 extra colors in PAL Commodore 128 
 - Optionally multiplexed monochromatic/multicolor bit
 - Optionally multiplexed x-expand bit
 - Optionally multiplexed y-expand bit (to be used with care because of imperfect sorting)
